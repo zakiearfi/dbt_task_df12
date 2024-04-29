@@ -1,0 +1,6 @@
+version: 2
+
+sources:
+  - name: weeklytask3
+    tables:
+      - name: raw_nyc_taxi_trip

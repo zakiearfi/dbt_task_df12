@@ -1,0 +1,51 @@
+version: 2
+
+models:
+  - name: monthly_total_passenger
+    columns:
+      - name: pickup_month
+        tests:
+        - not_null
+        - accepted_values:
+           values: [1, 6, 7, 8, 12]
+           quote: false
+      - name: total_passengers
+         tests:
+         - not_null 
+  - name: Monthly_transactions_per_payment_type
+    columns:
+      - name: pickup_month
+        tests:
+        - not_null
+        - accepted_values:
+           values: [1, 6, 7, 8, 12]
+           quote: false
+      - name: payment_type
+        tests:
+        - not_null
+        - accepted_values:
+           values: [1, 2, 3, 4, 5]
+           quote: false      
+      - name: total_transactions
+         tests:
+         - not_null      
+         - dbt_utils.expression_is_true:
+           expression: "fare_amount + extra + mta_tax + total_amount + improvement_surcharge + congestion_surcharge = total_transactions"    
+  - name: Monthly_trip_distance_per_rate_code
+    columns:
+      - name: pickup_month
+        tests:
+        - not_null
+        - accepted_values:
+           values: [1, 6, 7, 8, 12]
+           quote: false
+      - name: RatecodeID
+        tests:
+        - not_null
+        - accepted_values:
+           values: [1, 2, 3, 4, 5]
+           quote: false      
+      - name: avg_trip_distance
+        tests:
+        - not_null
+                
